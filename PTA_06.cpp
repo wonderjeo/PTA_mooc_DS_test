@@ -11,17 +11,17 @@ struct TreeNode{
 Tree CreateTree(struct TreeNode T[]);
 Tree CreateTree(struct TreeNode T[]){
 	int n;
-	Tree R;
+	Tree R=Null;
 	int i;
 	char cl,cr;
 	int check[MaxTree];
-	scanf("%d\n", &n);
+	scanf("%d", &n);
 	if(n)
 	{
 		for(i=0;i<n;i++)
 			check[i]=0;
 		for(i=0;i<n;i++){
-			scanf("%c %c %c\n",&T[i].Element, &cl, &cr);
+			scanf("\n%c %c %c",&T[i].Element, &cl, &cr);
 			if(cl!='-'){
 				T[i].Left=cl-'0';
 				check[T[i].Left]=1;
@@ -44,14 +44,29 @@ Tree CreateTree(struct TreeNode T[]){
 	return R;
 }
 
+void ShowTree(Tree R);
+void ShowTree(Tree R, struct TreeNode T[]){
+	printf("%c\n",T[R].Element);
+	if(T[R].Left!=Null)
+		ShowTree(T[R].Left, T);
+	if(T[R].Right!=Null)
+		ShowTree(T[R].Right, T);
+	return;
+}
 int Isomorphic(Tree R1, Tree R2);
 int Isomorphic(Tree R1, Tree R2){
-	if(R1==Null||R2==Null)
-		return (R1==Null&&R2==Null);
+	if(R1==Null&&R2==Null)
+		return 1;
+	if((R1==Null&&R2!=Null)||(R1!=Null&&R2==Null))
+		return 0;
 	if(T1[R1].Element!=T2[R2].Element)
 		return 0;
-	if(T1[R1].Left==T2[R2].Left)
-		return (Isomorphic(T1[R1].Left, T2[R2].Left)&&Isomorphic(T1[R1].Right,T2[R2].Right));
+	if(T1[R1].Left==Null&&T2[R2].Left==Null)
+		return (Isomorphic(T1[R1].Right,T2[R2].Right));
+	if(T1[R1].Right==Null&&T2[R2].Right==Null)
+		return (Isomorphic(T1[R1].Left,T2[R2].Left));
+	if(T1[T1[R1].Left].Element==T2[T2[R2].Left].Element)
+		return (Isomorphic(T1[R1].Left, T2[R2].Left)&&Isomorphic(T1[R1].Right, T2[R2].Right));
 	else
 		return (Isomorphic(T1[R1].Left, T2[R2].Right)&&Isomorphic(T1[R1].Right, T2[R2].Left));
 }
