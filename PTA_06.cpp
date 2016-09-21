@@ -15,7 +15,7 @@ Tree CreateTree(struct TreeNode T[]){
 	int i;
 	char cl,cr;
 	int check[MaxTree];
-	scanf("%d", &n);
+	scanf("%d\n", &n);
 	if(n)
 	{
 		for(i=0;i<n;i++)
