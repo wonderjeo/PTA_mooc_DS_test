@@ -37,14 +37,6 @@ void GetArrays(int n){
 			}
 		}
 	}
-	int j;
-	n/=2;
-	for(j=0;j<n;j++){
-		cout<<PreArray[j]<<endl;
-	}
-	for(j=0;j<n;j++){
-		cout<<InArray[j]<<endl;
-	}
 	return;
 }
 Tree CreateTree(int PreIndex, int InIndex, int length);
@@ -62,6 +54,17 @@ Tree CreateTree(int PreIndex, int InIndex, int length){
 	T[Root].Right=CreateTree(PreIndex+l+1,i+1,length-l-1);
 	return Root;
 }
+void PostOrder(Tree R);
+void PostOrder(Tree R){
+	if(R==Null)
+		return;
+	PostOrder(T[R].Left);
+	PostOrder(T[R].Right);
+	cout<<R;
+	if(R!=PreArray[0])
+		cout<<" ";
+	return;
+}
 int main()
 {
 	Tree R;
@@ -69,4 +72,5 @@ int main()
 	cin>>n;
 	GetArrays(n);
 	R=CreateTree(0, 0, n);
+	PostOrder(R);
 }
