@@ -10,14 +10,12 @@ struct TreeNode{
 	Tree Right;
 }T[Maxtree];
 int PreArray[Maxtree];
-int PreIndex=0;
 int InArray[Maxtree];
-int InIndex=0;
 stack<int> s;
-void GetArrays();
-void GetArrays(){
-	int n;
-	cin>>n;
+void GetArrays(int n);
+void GetArrays(int n){
+	int PreIndex=0;
+	int InIndex=0;
 	n*=2;
 	if(n){
 		int i;
@@ -49,7 +47,26 @@ void GetArrays(){
 	}
 	return;
 }
+Tree CreateTree(int PreIndex, int InIndex, int length);
+Tree CreateTree(int PreIndex, int InIndex, int length){
+	if(length<=0)
+		return Null;
+	Tree Root=PreArray[PreIndex];
+	int i;
+	for(i=InIndex;i<Maxtree;i++)
+		if(InArray[i]==Root)
+			break;
+	int l;
+	l=i-InIndex;
+	T[Root].Left=CreateTree(PreIndex+1,InIndex,l);
+	T[Root].Right=CreateTree(PreIndex+l+1,i+1,length-l-1);
+	return Root;
+}
 int main()
 {
-	GetArrays();
+	Tree R;
+	int n;
+	cin>>n;
+	GetArrays(n);
+	R=CreateTree(0, 0, n);
 }
