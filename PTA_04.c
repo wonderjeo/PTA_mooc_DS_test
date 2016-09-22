@@ -129,7 +129,8 @@ PtrNode ReverseK(PtrNode N, int k) {
 		Start->Data=N->Data;
 		Start->Next=N->Next;
 		return Start;
-	}//若k=1则不翻转
+	}
+	//若k=1则不翻转
 	Head = Start;
 	Rear = Start;
 	int i = 0;
