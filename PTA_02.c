@@ -59,13 +59,6 @@ struct subSequence maxSubsequenceSum(int a[], int left, int right){
     maxBorder.sum=maxLeftBorder.sum+maxRightBorder.sum;
     maxBorder.indexleft=maxLeftBorder.indexleft;
     maxBorder.indexright=maxRightBorder.indexright;
-//    printf("This is the present subsequence:");
-//    for(i=left; i<=right; i++){
-//       printf("%d ", a[i]);
-//    }
-//    printf("\n");
-//    printf("maxBorderSum: %d, maxLeftSubsequenceSum: %d, maxRightSubsequenceSum: %d \n", maxBorder.sum, maxLeftSubsequence.sum, maxRightSubsequence.sum);
-//    printf("The present result is %d, the index left is %d, the index right is %d\n", maxsum(maxBorder, maxLeftSubsequence, maxRightSubsequence).sum, maxsum(maxBorder, maxLeftSubsequence, maxRightSubsequence).indexleft, maxsum(maxBorder, maxLeftSubsequence, maxRightSubsequence).indexright);
     return maxsum(maxBorder, maxLeftSubsequence, maxRightSubsequence);
 }
 struct subSequence maxsum(struct subSequence a, struct subSequence b, struct subSequence c){
@@ -83,7 +76,6 @@ int main()
 {
     int k;
     int a[100000];
-//    printf("Please input the k number\n");
     scanf("%d", &k);
     int i;
     for(i=0;i<k;i++){
