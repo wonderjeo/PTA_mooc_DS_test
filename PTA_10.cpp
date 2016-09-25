@@ -1,6 +1,5 @@
 #include<iostream>
 typedef struct TreeNode* Tree;
-typedef Tree Position;
 struct TreeNode{
 	int v;
 	Tree Left,Right;
@@ -49,9 +48,49 @@ Tree Insert(Tree T, int V){
 					T=SingleRightRotaion(T)//右单旋
 			}
 		}
+		T->Height=(((T->Left)->Height)>((T->Right)->Height)?(T->Left):(T->Right))+1;
 	}
-
 	return T;
+}
+Tree SingleLeftRotation(Tree T);
+Tree SingleLeftRotation(Tree T){
+	Tree tmp;
+	tmp=T->Left;
+	T->Left=tmp->Right;
+	tmp->Left=T;
+	return tmp;
+}
+Tree SingleRightRotation(Tree T);
+Tree SingleRightRotation(Tree T){
+	Tree tmp;
+	tmp=T->Right;
+	T->Right=tmp->Left;
+	tmp->Right=T;
+	return tmp;
+}
+Tree DoubleLeftRightRotation(Tree T);
+Tree DoubleLeftRightRotation(Tree T){
+	Tree tmp1,tmp2;
+	tmp1=T->Left;
+	tmp2=T->Left->Right;
+	T->Left=tmp2;
+	tmp1->Right=tmp2->Left;
+	tmp2->Left=tmp1;
+	T->Left=tmp2->Right;
+	tmp2->Right=T;
+	return tmp2;
+}
+Tree DoubleRightLeftRotation(Tree T);
+Tree DoubleRightLeftRotation(Tree T){
+	Tree tmp1,tmp2;
+	tmp1=T->Right;
+	tmp2=T->Right->Left;
+	T->Right=tmp2;
+	tmp1->Left=tmp2->Right;
+	tmp2->Right=tmp1;
+	T->Right=tmp2->Left;
+	tmp2->Left=T;
+	return tmp2;
 }
 Tree NewNode(int V);
 Tree NewNode(int V){
