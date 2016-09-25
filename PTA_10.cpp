@@ -16,7 +16,6 @@ Tree CreateAVLTree(int N)
 	{
 		cin>>V;
 		T=Insert(T,V);
-		}
 	}
 	return T;
 }
