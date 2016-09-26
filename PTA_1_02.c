@@ -55,3 +55,49 @@ int main()
     return 0;
 }
 /* 你的代码将被嵌在这里 */
+BinTree Insert( BinTree BST, ElementType X ){
+	if(!BST){
+		BST=(BinTree)malloc(sizeof(struct TNode));
+		BST->Data=X;
+		BST->Left=BST->Right=NULL;
+	}
+	else{
+		if(X<BST->Data){
+			BST->Left=Insert(BST->Left,X);
+		}
+		else{
+			BST->Right=Insert(BST->Right,X);
+		}
+	}
+	return BST;
+}
+
+Position Find( BinTree BST, ElementType X ){
+	if(!BST)
+		return NULL;
+	if(BST->Data==X)
+		return BST;
+	else{
+		if(X<BST->Data)
+			return Find(BST->Left,X);
+		else
+			return Find(BST->Right,X);
+	}
+}
+
+BinTree Delete( BinTree BST, ElementType X ){
+	Position Tmp;
+	if(!BST)
+		printf("Not Found\n");
+	else{
+		if(X<BST->Data)
+			BST->Left=Delete(BST->Left,X);
+		else if(X>BST->Data)
+			BST->Right=Delete(BST->Right,X);
+		else{
+			if(BST->Left&&BST->Right){
+				Tmp=Find
+			}
+		}
+	}
+}
