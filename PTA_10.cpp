@@ -15,6 +15,12 @@ Tree DoubleLeftRightRotation(Tree T);
 Tree DoubleRightLeftRotation(Tree T);
 Tree NewNode(int V);
 int GetHeight(Tree T);
+int GetHeight(Tree T){
+	if(!T)
+		return 0;
+	else
+		return T->Height;
+}
 Tree CreateAVLTree(int N)
 {
 	Tree T,E;
@@ -36,7 +42,7 @@ Tree Insert(Tree T, int V){
 		if(V<T->v)
 		{
 			T->Left=Insert(T->Left,V);//插入左子树
-			if((T->Left)->Height-(T->Right)->Height==2)//平衡被破坏
+			if(GetHeight(T->Left)-GetHeight(T->Right)==2)//平衡被破坏
 			{
 				if(V<((T->Left)->v))//引发破坏的节点位于左子树的左子树
 					T=SingleLeftRotation(T);//左单旋
@@ -47,7 +53,7 @@ Tree Insert(Tree T, int V){
 		else
 		{
 			T->Right=Insert(T->Right,V);//插入右子树
-			if((T->Right)->Height-(T->Left)->Height==2)//平衡被破坏
+			if(GetHeight(T->Right)-GetHeight(T->Left)==2)//平衡被破坏
 			{
 				if(V<((T->Right)->v))//引发破坏的节点位于右子树的左子树
 					T=DoubleRightLeftRotation(T);//右左双旋
@@ -55,7 +61,7 @@ Tree Insert(Tree T, int V){
 					T=SingleRightRotation(T);//右单旋
 			}
 		}
-		T->Height=(((T->Left)->Height)>((T->Right)->Height)?((T->Left)->Height):((T->Right)->Height))+1;
+		T->Height=(GetHeight(T->Left)>GetHeight(T->Right)?GetHeight(T->Left):GetHeight(T->Right))+1;
 	}
 	return T;
 }
