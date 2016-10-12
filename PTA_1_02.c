@@ -11,23 +11,7 @@ struct TNode{
 };
 
 void PreorderTraversal( BinTree BT ); /* 先序遍历，由裁判实现，细节不表 */
-void PreorderTraversal( BinTree BT ) /* 先序遍历，由裁判实现，细节不表 */
-{
-	printf("%d ",BT->Data);
-	if(BT->Left)
-		PreorderTraversal(BT->Left);
-	if(BT->Right)
-		PreorderTraversal(BT->Right);
-}
 void InorderTraversal( BinTree BT );  /* 中序遍历，由裁判实现，细节不表 */
-void InorderTraversal( BinTree BT )  /* 中序遍历，由裁判实现，细节不表 */
-{
-	if(BT->Left)
-		PreorderTraversal(BT->Left);
-	if(BT->Right)
-		PreorderTraversal(BT->Right);
-	printf("%d ",BT->Data);
-}
 
 BinTree Insert( BinTree BST, ElementType X );
 BinTree Delete( BinTree BST, ElementType X );
@@ -101,26 +85,6 @@ Position Find( BinTree BST, ElementType X ){
 	}
 }
 
-Position FindMin( BinTree BST ){
-	if(!BST)
-		return NULL;
-	Position tmp;
-	tmp=BST;
-	while(tmp->Left){
-		tmp=tmp->Left;
-	}
-	return tmp;
-}
-Position FindMax( BinTree BST ){
-	if(!BST)
-		return NULL;
-	Position tmp;
-	tmp=BST;
-	while(tmp->Right){
-		tmp=tmp->Right;
-	}
-	return tmp;
-}
 BinTree Delete( BinTree BST, ElementType X ){
 	Position Tmp;
 	if(!BST)
@@ -132,19 +96,8 @@ BinTree Delete( BinTree BST, ElementType X ){
 			BST->Right=Delete(BST->Right,X);
 		else{
 			if(BST->Left&&BST->Right){
-				Tmp=FindMin(BST->Right);
-				BST->Data=Tmp->Data;
-				BST->Right=Delete(BST->Right,Tmp->Data);
-			}
-			else{
-				Tmp=BST;
-				if(BST->Left)
-					BST=BST->Left;
-				else
-					BST=BST->Right;
-				free(Tmp);
+				Tmp=Find
 			}
 		}
 	}
-	return BST;
 }
