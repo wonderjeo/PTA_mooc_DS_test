@@ -59,9 +59,83 @@ int main()
 
 /* Your function will be put here */
 Deque CreateDeque(){
-	
+	Deque D;
+	D=(Deque)malloc(sizeof(struct DequeRecord));
+	D->Front=(PtrToNode)malloc(sizeof(struct Node));
+	D->Front->Last=NULL;
+	D->Front->Next=NULL;
+	D->Rear=D->Front;
+	return D;
 }
-int Push( ElementType X, Deque D );
-ElementType Pop( Deque D );
-int Inject( ElementType X, Deque D );
-ElementType Eject( Deque D );
+int Push( ElementType X, Deque D ){
+	PtrToNode tmp;
+	tmp=(PtrToNode)malloc(sizeof(struct Node));
+	tmp->Element=X;
+	if(D->Front==D->Rear)//if empty deque
+	{
+		tmp->Last=D->Front;
+		tmp->Next=NULL;
+		D->Front->Next=tmp;
+		D->Rear=tmp;
+	}
+	else{
+		tmp->Next=D->Front->Next;
+		tmp->Last=D->Front;
+		D->Front->Next->Last=tmp;
+		D->Front->Next=tmp;
+	}
+	return 1;
+}
+ElementType Pop( Deque D ){
+	if(D->Rear==D->Front)//if empty deque
+	{
+		return ERROR;
+	}
+	PtrToNode tmp;
+	ElementType e;
+	tmp=D->Front->Next;
+	if(tmp==D->Rear)//if the deque has only one node
+	{
+		D->Rear=D->Front;
+		D->Front->Next=NULL;
+	}	
+	else{
+		D->Front->Next=tmp->Next;
+		D->Front->Next->Last=D->Front;
+	}
+	e=tmp->Element;
+	free(tmp);
+	return e;
+}
+int Inject( ElementType X, Deque D ){
+	PtrToNode tmp;
+	tmp=(PtrToNode)malloc(sizeof(struct Node));
+	tmp->Element=X;
+	if(D->Front==D->Rear)//if empty deque
+	{
+		tmp->Last=D->Front;
+		tmp->Next=NULL;
+		D->Front->Next=tmp;
+		D->Rear=tmp;
+	}
+	else{
+		tmp->Next=NULL;
+		tmp->Last=D->Rear;
+		D->Rear->Next=tmp;
+		D->Rear=tmp;
+	}
+	return 1;
+}
+ElementType Eject( Deque D ){
+	if(D->Rear==D->Front)//if empty deque
+	{
+		return ERROR;
+	}
+	PtrToNode tmp;
+	ElementType e;
+	tmp=D->Rear;
+	D->Rear=D->Rear->Last;
+	e=tmp->Element;
+	free(tmp);
+	return e;
+}
