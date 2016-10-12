@@ -58,3 +58,10 @@ int main()
 }
 
 /* Your function will be put here */
+Deque CreateDeque(){
+	
+}
+int Push( ElementType X, Deque D );
+ElementType Pop( Deque D );
+int Inject( ElementType X, Deque D );
+ElementType Eject( Deque D );
