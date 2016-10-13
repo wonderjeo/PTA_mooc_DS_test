@@ -30,7 +30,7 @@ int main()
     scanf("%d", &N);
     S = CreateStack(N);
     while ( !done ) {
-        switch( GetOp() ) {
+        switch( /*GetOp()*/done ) {
         case push: 
             scanf("%d %d", &Sn, &X);
             if (!Push(X, S, Sn)) printf("Stack %d is Full!\n", Sn);
@@ -41,8 +41,8 @@ int main()
             if ( X==ERROR ) printf("Stack %d is Empty!\n", Sn);
             break;
         case end:
-            PrintStack(S, 1);
-            PrintStack(S, 2);
+//            PrintStack(S, 1);
+//            PrintStack(S, 2);
             done = 1;
             break;
         }
@@ -53,25 +53,24 @@ int main()
 /* Your function will be put here */
 Stack CreateStack( int MaxElements ){
 	Stack S;
-	ElementType a[10000];//maximum size of the array is 10000
-	Stack=(Stack)malloc(sizeof(struct StackRecord));
-	S->Array=a;
+	S=(Stack)malloc(sizeof(struct StackRecord));
+	S->Array=(ElementType *)malloc(MaxElements*sizeof(ElementType));
 	S->Capacity=MaxElements;
-	S->Top1=a;//top pointer of stack1
-	S->Top2=&a[MaxElements];//top pointer of stack2
+	S->Top1=-1;//top pointer of stack1
+	S->Top2=MaxElements;//top pointer of stack2
 	return S;
 }
 int IsEmpty( Stack S, int Stacknum ){
 	int flag=0;
 	if(Stacknum==1){
-		if(S->Top1==S->Array)
+		if(S->Top1==-1)
 		{
 			flag=1;//isEmpty
 		}
 	}
 	else//stack2
 	{
-		if(S->Top2==(S->Array+S->Capacity))
+		if(S->Top2==S->Capacity)
 		{
 			flag=1;//isEmpty
 		}
@@ -80,40 +79,36 @@ int IsEmpty( Stack S, int Stacknum ){
 }
 int IsFull( Stack S ){
 	int flag=0;
-	if(S->Top1==S->Top2)
+	if((S->Top1)==(S->Top2-1))
 	{
 		flag=1;//isFull
 	}
 	return flag;
 }
 int Push( ElementType X, Stack S, int Stacknum ){
-	if(isFull(S))
+	if(IsFull(S))
 		return 0;
 	if(Stacknum==1)//stack1
 	{
-		*(S->Top1)=X;
-		(S->Top1)++;
+		S->Array[++(S->Top1)]=X;
 	}
 	else//stack2
 	{
-		*(S->Top2)=X;
-		(S->Top2)--;
+		S->Array[--(S->Top2)]=X;
 	}
 	return 1;
 }
 ElementType Top_Pop( Stack S, int Stacknum ){
-	if(isEmpty(S))
-		return 0;
+	if(IsEmpty(S,Stacknum))
+		return ERROR;
 	ElementType e;
 	if(Stacknum==1)//stack1
 	{
-		e=*(S->Top1);
-		(S->Top1)--;
+		e=S->Array[(S->Top1)--];
 	}
 	else//stack2
 	{
-		e=*(S->Top2);
-		(S->Top2)++;
+		e=S->Array[(S->Top2)++];
 	}
-	return 1;
+	return e;
 }
